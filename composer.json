@@ -1,5 +1,5 @@
 {
-    "name": "devthanatos/ckfinder-bundle",
+    "name": "jonlil/ckfinder-bundle",
     "type": "symfony-bundle",
     "description": "",
     "keywords": ["CKFinder", "CKEditor"],
@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "egeloen/ckeditor-bundle": "2.1.2",
+        "egeloen/ckeditor-bundle": ">=2.1.2",
         "php": ">=5.3.0",
         "symfony/framework-bundle": ">=2.1",
         "jonlil/ckfinder": "2.3.1"
