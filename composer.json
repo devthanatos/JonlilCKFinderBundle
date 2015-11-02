@@ -1,5 +1,5 @@
 {
-    "name": "devthanatos/ckfinder-bundle",
+    "name": "jonlil/ckfinder-bundle",
     "type": "symfony-bundle",
     "description": "",
     "keywords": ["CKFinder", "CKEditor"],
@@ -9,13 +9,29 @@
             "email": "jonas.liljestrand@gmail.com"
         }
     ],
+    "repositories":[
+        {
+            "type": "git",
+            "url": "https://makopyants@bitbucket.org/makopyants/ckfinder.git"
+        }
+    ],
     "require": {
-        "egeloen/ckeditor-bundle": ">=2.1.2",
         "php": ">=5.3.0",
-        "symfony/framework-bundle": ">=2.1"
+        "symfony/framework-bundle": ">=2.1",
+        "symfony/assetic-bundle": ">=2.1",
+        "egeloen/ckeditor-bundle": "3.*",
+        "ckfinder": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "symfony/validator": "*",
+        "symfony/twig-bundle": ">=2.1",
+        "symfony/browser-kit":  ">=2.3,<2.4-dev",
+        "symfony/css-selector": "~2.3"
     },
     "autoload": {
         "psr-0": { "Jonlil\\CKFinderBundle": "" }
     },
-    "target-dir": "Jonlil/CKFinderBundle"
+    "target-dir": "Jonlil/CKFinderBundle",
+    "version": "3.0.0"
 }

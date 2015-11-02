@@ -14,31 +14,52 @@ use Symfony\Component\HttpFoundation\Request;
 
 class s3 extends AbstractConnector
 {
-    private $mustHave = array('base_url', 'base_dir', 'access_key', 'secret', 'bucket');
+    private $mustHave = array(
+        'base_url',
+        'base_dir',
+        'access_key',
+        'secret',
+        'bucket',
+        'thumbnails_file',
+        'thumbnails_enabled',
+        'direct_access',
+        'file_delete',
+        'file_view',
+        'file_upload',
+        'file_rename',
+        'folder_view',
+        'folder_create',
+        'folder_rename',
+        'folder_delete',
+    );
 
     protected function build_config ()
     {
-
         foreach($this->mustHave as $key) {
             if (!array_key_exists($key, $this->parameters['amazon'])) {
                 throw new \Exception(sprintf('Amazon %s must be set', $key));
             }
         }
 
+        $base_url = preg_replace('/https*:\/\/(.*)\.amazonaws\.com.*/', '\1.amazonaws.com', $this->parameters['amazon']['base_url']);
+        $sslUse = preg_match('/https/', $this->parameters['amazon']['base_url']);
         $GLOBALS['config']['AmazonS3'] = array(
             'AccessKey' => $this->parameters['amazon']['access_key'],
             'SecretKey' => $this->parameters['amazon']['secret'],
-            'Bucket' => $this->parameters['amazon']['bucket']
+            'Bucket' => $this->parameters['amazon']['bucket'],
+            'BaseUrl' => $base_url,
+            'SslUse' => $sslUse
         );
 
         $GLOBALS['config']['LicenseName'] = $this->parameters['license']['name'];
         $GLOBALS['config']['LicenseKey'] = $this->parameters['license']['key'];
 
+        $thumnailsSuffix = $this->parameters['amazon']['thumbnails_file']? '_thumbs': '';
         $GLOBALS['config']['Thumbnails'] = Array(
-            'url' => $this->parameters['baseUrl'] . '/' . $this->parameters['amazon']['bucket'] . '/_thumbs',
-            'directory' => $this->parameters['baseDir'] . '_thumbs',
-            'enabled' => true,
-            'directAccess' => false,
+            'url' => $this->parameters['baseUrl'] . '/' . $this->parameters['amazon']['bucket'] . '/' . $this->parameters['baseDir'] . '/' . $thumnailsSuffix . '/',
+            'directory' => $this->parameters['baseDir'] . $thumnailsSuffix,
+            'enabled' => $this->parameters['amazon']['thumbnails_enabled'],
+            'directAccess' => $this->parameters['amazon']['direct_access'],
             'maxWidth' => 100,
             'maxHeight' => 100,
             'bmpSupported' => false,
@@ -58,15 +79,15 @@ class s3 extends AbstractConnector
             'resourceType' => '*',
             'folder' => '/',
 
-            'folderView' => true,
-            'folderCreate' => true,
-            'folderRename' => true,
-            'folderDelete' => true,
+            'folderView' => $this->parameters['amazon']['folder_view'],
+            'folderCreate' => $this->parameters['amazon']['folder_create'],
+            'folderRename' => $this->parameters['amazon']['folder_rename'],
+            'folderDelete' => $this->parameters['amazon']['folder_delete'],
 
-            'fileView' => true,
-            'fileUpload' => true,
-            'fileRename' => true,
-            'fileDelete' => true
+            'fileView' => $this->parameters['amazon']['file_view'],
+            'fileUpload' => $this->parameters['amazon']['file_upload'],
+            'fileRename' => $this->parameters['amazon']['file_rename'],
+            'fileDelete' => $this->parameters['amazon']['file_delete']
         );
 
         $GLOBALS['config']['DefaultResourceTypes'] = '';

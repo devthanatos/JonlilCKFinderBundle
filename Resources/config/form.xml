@@ -6,13 +6,20 @@
 
     <parameters>
         <parameter key="form.type.ckfinder.class">Jonlil\CKFinderBundle\Form\Type\CKFinderType</parameter>
+        <parameter key="ivory_ck_editor.config_manager.class">Ivory\CKEditorBundle\Model\ConfigManager</parameter>
+        <parameter key="ivory_ck_editor.plugin_manager.class">Ivory\CKEditorBundle\Model\PluginManager</parameter>
     </parameters>
 
     <services>
         <service id="form.type.ckfinder" class="%form.type.ckfinder.class%" scope="request">
             <argument type="service" id="ivory_ck_editor.config_manager" />
             <argument type="service" id="ivory_ck_editor.plugin_manager" />
+            <argument type="service" id="ivory_ck_editor.styles_set_manager" />
+            <argument type="service" id="ivory_ck_editor.template_manager" />
             <tag name="form.type" alias="ckfinder" />
+            <call method="setRouter">
+                <argument type="service" id="router" />
+            </call>
         </service>
     </services>
 </container>
