@@ -19,7 +19,7 @@
         "php": ">=5.3.0",
         "symfony/framework-bundle": ">=2.1",
         "symfony/assetic-bundle": ">=2.1",
-        "egeloen/ckeditor-bundle": "3.*",
+        "egeloen/ckeditor-bundle": "3.*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
