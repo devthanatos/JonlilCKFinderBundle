@@ -20,7 +20,7 @@
         "symfony/framework-bundle": ">=2.1",
         "symfony/assetic-bundle": ">=2.1",
         "egeloen/ckeditor-bundle": "3.*",
-        "ckfinder": "dev-master"
+        "makopyants/ckfinder": "master"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
